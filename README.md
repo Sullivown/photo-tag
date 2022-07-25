@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Photo Tag
 
 A photo tagging game app. Created as part of [The Odin Project](https://www.theodinproject.com).
 
