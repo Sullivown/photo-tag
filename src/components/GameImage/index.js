@@ -43,14 +43,13 @@ function GameImage(props) {
 	}
 
 	function handleLeftClick(event) {
-		console.log(imgRef);
 		const clickCoords = {
 			width: event.clientX / imgSize.width,
 			height:
 				event.clientY / imgSize.height +
-				imgRef.current.scrollTop / imgSize.height,
+				window.scrollY / imgSize.height,
 		};
-		console.log(clickCoords);
+		//console.log(clickCoords);
 		setCurrentClick({ ...clickCoords, visible: true });
 	}
 
@@ -63,15 +62,22 @@ function GameImage(props) {
 		const correctAnswer = props.level.answers.find(
 			(item) => item.id === optionId
 		);
+		console.log(
+			'Width: ' + imgSize.width / correctAnswer.coordinates.x.end
+		);
+		console.log(
+			'Height: ' + imgSize.height / correctAnswer.coordinates.y.start
+		);
+		console.log(currentClick);
 		if (
 			currentClick.height >=
-				imgSize.height / correctAnswer.coordinates.y.start &&
-			currentClick.height <=
 				imgSize.height / correctAnswer.coordinates.y.end &&
+			currentClick.height <=
+				imgSize.height / correctAnswer.coordinates.y.start &&
 			currentClick.width >=
-				imgSize.width / correctAnswer.coordinates.x.start &&
+				imgSize.width / correctAnswer.coordinates.x.end &&
 			currentClick.width <=
-				imgSize.width / correctAnswer.coordinates.x.end
+				imgSize.width / correctAnswer.coordinates.x.start
 		) {
 			console.log('Got him!');
 		}
