@@ -8,7 +8,7 @@ import Wally1 from '../../assets/images/wally1.jpg';
 import ClickMenu from '../ClickMenu';
 
 const StyledImage = styled.img`
-	max-width: 100vw;
+	width: 100%;
 	position: relative;
 	cursor: crosshair;
 `;
@@ -20,11 +20,6 @@ function GameImage(props) {
 		height: 0,
 		visible: false,
 	});
-
-	const correct = {
-		width: { start: 0.7188478396994364, end: 0.7288478396994364 },
-		height: { start: 0.19348370927318295, end: 0.20348370927318295 },
-	};
 
 	const imgRef = useRef();
 	const windowSize = useWindowSize();
@@ -48,22 +43,14 @@ function GameImage(props) {
 	}
 
 	function handleLeftClick(event) {
+		console.log(imgRef);
 		const clickCoords = {
 			width: event.clientX / imgSize.width,
-			height: event.clientY / imgSize.height,
+			height:
+				event.clientY / imgSize.height +
+				imgRef.current.scrollTop / imgSize.height,
 		};
 		console.log(clickCoords);
-
-		// Determine if correctly clicked
-		if (
-			clickCoords.height >= correct.height.start &&
-			clickCoords.height <= correct.height.end &&
-			clickCoords.width >= correct.width.start &&
-			clickCoords.width <= correct.width.end
-		) {
-			console.log('Got him!');
-		}
-
 		setCurrentClick({ ...clickCoords, visible: true });
 	}
 
@@ -71,9 +58,32 @@ function GameImage(props) {
 		setCurrentClick({ ...currentClick, visible: false });
 	}
 
+	function handleOptionClick(optionId) {
+		// Determine if correctly clicked
+		const correctAnswer = props.level.answers.find(
+			(item) => item.id === optionId
+		);
+		if (
+			currentClick.height >=
+				imgSize.height / correctAnswer.coordinates.y.start &&
+			currentClick.height <=
+				imgSize.height / correctAnswer.coordinates.y.end &&
+			currentClick.width >=
+				imgSize.width / correctAnswer.coordinates.x.start &&
+			currentClick.width <=
+				imgSize.width / correctAnswer.coordinates.x.end
+		) {
+			console.log('Got him!');
+		}
+	}
+
 	return (
 		<>
-			<ClickMenu currentClick={currentClick} imgSize={imgSize} />
+			<ClickMenu
+				currentClick={currentClick}
+				imgSize={imgSize}
+				handleOptionClick={handleOptionClick}
+			/>
 			<StyledImage
 				id='current-image'
 				onLoad={() => setImgSize(getImgSize())}

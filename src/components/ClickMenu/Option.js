@@ -6,12 +6,19 @@ const StyledOption = styled.div`
 	cursor: pointer;
 
 	&&:hover {
-		color: blue;
+		color: ${(props) => props.theme.highlight};
 	}
 `;
 
 function Option(props) {
-	return <StyledOption>{props.children}</StyledOption>;
+	return (
+		<StyledOption
+			onClick={() => props.handleOptionClick(props.option.id)}
+			data-answer={props.option.name}
+		>
+			{props.option.name}
+		</StyledOption>
+	);
 }
 
 export default Option;
