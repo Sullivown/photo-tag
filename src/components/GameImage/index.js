@@ -18,6 +18,8 @@ function GameImage(props) {
 	const [currentClick, setCurrentClick] = useState({
 		width: 0,
 		height: 0,
+		offsetTop: 0,
+		offsetLeft: 0,
 		visible: false,
 	});
 
@@ -43,14 +45,19 @@ function GameImage(props) {
 	}
 
 	function handleLeftClick(event) {
+		//console.log(event);
+		//console.log(event.target.offsetTop) <--- This is the height of the header
+		// clientHeight and clientWidth maybe?
+		// target.offsetWidth and offsetHeight is width and height the node we are in maybe?
 		const clickCoords = {
-			width: event.clientX / imgSize.width,
-			height:
-				event.clientY / imgSize.height +
-				window.scrollY / imgSize.height,
+			width: event.nativeEvent.offsetX,
+			height: event.nativeEvent.offsetY,
+			offsetTop: event.target.offsetTop,
+			offsetLeft: event.target.offsetLeft,
+			visible: true,
 		};
-		//console.log(clickCoords);
-		setCurrentClick({ ...clickCoords, visible: true });
+		console.log(clickCoords);
+		setCurrentClick(clickCoords);
 	}
 
 	function handleRightClick() {
@@ -63,10 +70,17 @@ function GameImage(props) {
 			(item) => item.id === optionId
 		);
 		console.log(
-			'Width: ' + imgSize.width / correctAnswer.coordinates.x.end
+			'Width start: ' + imgSize.width / correctAnswer.coordinates.x.start
 		);
 		console.log(
-			'Height: ' + imgSize.height / correctAnswer.coordinates.y.start
+			'Width end: ' + imgSize.width / correctAnswer.coordinates.x.end
+		);
+		console.log(
+			'Height start: ' +
+				imgSize.height / correctAnswer.coordinates.y.start
+		);
+		console.log(
+			'Height end: ' + imgSize.height / correctAnswer.coordinates.y.end
 		);
 		console.log(currentClick);
 		if (

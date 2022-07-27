@@ -8,8 +8,10 @@ const StyledClickMenu = styled.div`
 	display: flex;
 	flex-direction: column;
 	position: absolute;
-	top: ${(props) => `${props.currentClick.height * props.imgSize.height}px`};
-	left: ${(props) => `${props.currentClick.width * props.imgSize.width}px`};
+	top: ${(props) =>
+		`${props.currentClick.height + props.currentClick.offsetTop}px`};
+	left: ${(props) =>
+		`${props.currentClick.width + props.currentClick.offsetLeft}px`};
 	color: ${(props) => props.theme.secondary};
 	background-color: ${(props) => props.theme.primary};
 	width: 200px;
