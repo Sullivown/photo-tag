@@ -56,7 +56,6 @@ function GameImage(props) {
 			offsetLeft: event.target.offsetLeft,
 			visible: true,
 		};
-		console.log(clickCoords);
 		setCurrentClick(clickCoords);
 	}
 
@@ -65,33 +64,27 @@ function GameImage(props) {
 	}
 
 	function handleOptionClick(optionId) {
+		const imageSize = {
+			width: imgRef.current.offsetWidth,
+			height: imgRef.current.offsetHeight,
+		};
+
 		// Determine if correctly clicked
 		const correctAnswer = props.level.answers.find(
 			(item) => item.id === optionId
 		);
-		console.log(
-			'Width start: ' + imgSize.width / correctAnswer.coordinates.x.start
-		);
-		console.log(
-			'Width end: ' + imgSize.width / correctAnswer.coordinates.x.end
-		);
-		console.log(
-			'Height start: ' +
-				imgSize.height / correctAnswer.coordinates.y.start
-		);
-		console.log(
-			'Height end: ' + imgSize.height / correctAnswer.coordinates.y.end
-		);
+
+		const widthRatio = imgRef.current.naturalWidth / imageSize.width;
+		const heightRatio = imgRef.current.naturalHeight / imageSize.height;
 		console.log(currentClick);
 		if (
-			currentClick.height >=
-				imgSize.height / correctAnswer.coordinates.y.end &&
-			currentClick.height <=
-				imgSize.height / correctAnswer.coordinates.y.start &&
 			currentClick.width >=
-				imgSize.width / correctAnswer.coordinates.x.end &&
+				correctAnswer.coordinates.x.start / widthRatio &&
 			currentClick.width <=
-				imgSize.width / correctAnswer.coordinates.x.start
+				correctAnswer.coordinates.x.end / widthRatio &&
+			currentClick.height >=
+				correctAnswer.coordinates.y.start / heightRatio &&
+			currentClick.height <= correctAnswer.coordinates.y.end / heightRatio
 		) {
 			console.log('Got him!');
 		}
