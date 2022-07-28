@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
-import { LevelContext } from '../../App';
 import Option from './Option';
 
 const StyledClickMenu = styled.div`
@@ -24,8 +23,7 @@ const StyledClickMenu = styled.div`
 `;
 
 function ClickMenu(props) {
-	const level = useContext(LevelContext);
-	const optionElements = level.answers.map((option) => (
+	const optionElements = props.level.answers.map((option) => (
 		<Option
 			key={option.id}
 			option={option}

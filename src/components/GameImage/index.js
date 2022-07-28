@@ -6,6 +6,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 import Wally1 from '../../assets/images/wally1.jpg';
 
 import ClickMenu from '../ClickMenu';
+import FoundBox from './FoundBox';
 
 const StyledImage = styled.img`
 	width: 100%;
@@ -15,6 +16,7 @@ const StyledImage = styled.img`
 
 function GameImage(props) {
 	const [imgSize, setImgSize] = useState({ width: 0, height: 0 });
+	const [ratios, setRatios] = useState({ width: 0, height: 0 });
 	const [currentClick, setCurrentClick] = useState({
 		width: 0,
 		height: 0,
@@ -28,11 +30,21 @@ function GameImage(props) {
 
 	useEffect(() => {
 		setImgSize(getImgSize());
+		setRatios(getRatios());
 	}, [windowSize]);
 
 	function getImgSize() {
 		const { offsetWidth, offsetHeight } = imgRef.current;
 		return { width: offsetWidth, height: offsetHeight };
+	}
+
+	function getRatios() {
+		const { offsetWidth, offsetHeight, naturalWidth, naturalHeight } =
+			imgRef.current;
+		return {
+			width: naturalWidth / offsetWidth,
+			height: naturalHeight / offsetHeight,
+		};
 	}
 
 	function handleClick(event) {
@@ -45,10 +57,6 @@ function GameImage(props) {
 	}
 
 	function handleLeftClick(event) {
-		//console.log(event);
-		//console.log(event.target.offsetTop) <--- This is the height of the header
-		// clientHeight and clientWidth maybe?
-		// target.offsetWidth and offsetHeight is width and height the node we are in maybe?
 		const clickCoords = {
 			width: event.nativeEvent.offsetX,
 			height: event.nativeEvent.offsetY,
@@ -64,47 +72,60 @@ function GameImage(props) {
 	}
 
 	function handleOptionClick(optionId) {
-		const imageSize = {
-			width: imgRef.current.offsetWidth,
-			height: imgRef.current.offsetHeight,
-		};
-
 		// Determine if correctly clicked
 		const correctAnswer = props.level.answers.find(
 			(item) => item.id === optionId
 		);
 
-		const widthRatio = imgRef.current.naturalWidth / imageSize.width;
-		const heightRatio = imgRef.current.naturalHeight / imageSize.height;
 		console.log(currentClick);
+
 		if (
 			currentClick.width >=
-				correctAnswer.coordinates.x.start / widthRatio &&
+				correctAnswer.coordinates.x.start / ratios.width &&
 			currentClick.width <=
-				correctAnswer.coordinates.x.end / widthRatio &&
+				correctAnswer.coordinates.x.end / ratios.width &&
 			currentClick.height >=
-				correctAnswer.coordinates.y.start / heightRatio &&
-			currentClick.height <= correctAnswer.coordinates.y.end / heightRatio
+				correctAnswer.coordinates.y.start / ratios.height &&
+			currentClick.height <=
+				correctAnswer.coordinates.y.end / ratios.height
 		) {
-			console.log('Got him!');
+			props.handleFound(props.level.id, correctAnswer.id);
 		}
 	}
 
+	const answerBoxElements = props.level.answers.map(
+		(answer) =>
+			answer.found && (
+				<FoundBox
+					key={`answer-${answer.id}`}
+					coordinates={answer.coordinates}
+					ratios={ratios}
+					offsetTop={currentClick.offsetTop}
+					offsetLeft={currentClick.offsetLeft}
+				/>
+			)
+	);
+
 	return (
 		<>
-			<ClickMenu
-				currentClick={currentClick}
-				imgSize={imgSize}
-				handleOptionClick={handleOptionClick}
-			/>
+			{answerBoxElements}
 			<StyledImage
 				id='current-image'
-				onLoad={() => setImgSize(getImgSize())}
 				ref={imgRef}
 				src={Wally1}
+				onLoad={() => {
+					setImgSize(getImgSize());
+					setRatios(getRatios());
+				}}
 				onClick={(e) => handleClick(e)}
 				onContextMenu={(e) => handleClick(e)}
 				alt='Where is wally?'
+			/>
+			<ClickMenu
+				level={props.level}
+				currentClick={currentClick}
+				imgSize={imgSize}
+				handleOptionClick={handleOptionClick}
 			/>
 		</>
 	);

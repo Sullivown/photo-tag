@@ -14,7 +14,12 @@ function Main(props) {
 			{
 				{
 					select: <StageSelect />,
-					level: <GameImage level={props.level} />,
+					level: (
+						<GameImage
+							level={props.level}
+							handleFound={props.handleFound}
+						/>
+					),
 				}[props.gameStage]
 			}
 		</StyledMain>
