@@ -72,6 +72,9 @@ function GameImage(props) {
 	}
 
 	function handleOptionClick(optionId) {
+		// Close the popup
+		setCurrentClick({ ...currentClick, visible: false });
+
 		// Determine if correctly clicked
 		const correctAnswer = props.level.answers.find(
 			(item) => item.id === optionId

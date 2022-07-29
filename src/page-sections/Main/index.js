@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import StageSelect from '../../components/StageSelect';
+import LevelSelect from '../../components/LevelSelect';
 import GameImage from '../../components/GameImage';
 
 const StyledMain = styled.main`
-	min-height: 80vh;
+	min-height: 100vh;
 `;
 
 function Main(props) {
@@ -13,7 +13,12 @@ function Main(props) {
 		<StyledMain>
 			{
 				{
-					select: <StageSelect />,
+					select: (
+						<LevelSelect
+							levels={props.levels}
+							handleLevelSelect={props.handleLevelSelect}
+						/>
+					),
 					level: (
 						<GameImage
 							level={props.level}

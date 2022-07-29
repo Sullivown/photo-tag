@@ -17,7 +17,6 @@ const StyledFoundBox = styled.div`
 `;
 
 function FoundBox(props) {
-	console.log(props);
 	return (
 		<StyledFoundBox
 			coordinates={{
