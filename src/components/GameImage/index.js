@@ -10,8 +10,9 @@ import FoundBox from './FoundBox';
 
 const StyledImage = styled.img`
 	width: 100%;
+	z-index: 0;
 	position: relative;
-	cursor: crosshair;
+	cursor: cell;
 `;
 
 function GameImage(props) {

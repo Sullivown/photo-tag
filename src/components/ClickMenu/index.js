@@ -16,7 +16,7 @@ const StyledClickMenu = styled.div`
 	width: 200px;
 	visibility: ${(props) =>
 		props.currentClick.visible ? 'visible' : 'hidden'};
-	z-index: 5;
+	z-index: 3;
 	padding: 5px;
 	border-radius: 5px;
 	opacity: 0.95;

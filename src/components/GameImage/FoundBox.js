@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import GreenTick from '../../assets/icons/green-tick.png';
+
 const StyledFoundBox = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -12,8 +14,9 @@ const StyledFoundBox = styled.div`
 	border-radius: 15px;
 	width: ${(props) => `${props.width}px`};
 	height: ${(props) => `${props.height}px`};
-	z-index: 5;
+	z-index: 2;
 	opacity: 0.95;
+	cursor: url(${GreenTick}), auto;
 `;
 
 function FoundBox(props) {
