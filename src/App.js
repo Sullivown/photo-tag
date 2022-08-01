@@ -8,15 +8,16 @@ import Footer from './page-sections/Footer';
 import leveldata from './assets/test-data/leveldata.json';
 import { TIME_LIMIT } from './gameSettings';
 import checkForGameOver from './utilities/checkForGameOver';
+import Modal from './components/Modal';
 
 function App() {
 	const [gameStage, setGameStage] = useState('select');
-	const [started, setStarted] = useState(false);
 	const [levels, setLevels] = useState(leveldata);
 	const [currentLevelId, setCurrentLevelId] = useState(null);
 	const [score, setScore] = useState({ minutes: 0, seconds: 0 });
+	const [isGameOver, setIsGameOver] = useState(false);
 
-	const { seconds, minutes, isRunning, start, pause } = useStopwatch({
+	const { seconds, minutes, isRunning, start, pause, reset } = useStopwatch({
 		autoStart: false,
 	});
 
@@ -44,7 +45,6 @@ function App() {
 	function handleLevelSelect(id) {
 		setCurrentLevelId(parseInt(id));
 		setGameStage('level');
-		setStarted(true);
 		start();
 	}
 
@@ -66,15 +66,25 @@ function App() {
 	}
 
 	function handleGameOver() {
+		setIsGameOver(true);
 		pause();
 		console.log(
 			`Game over! Your score is: ${score.minutes} minutes and ${score.seconds} seconds!`
 		);
 	}
 
+	function handleReset() {
+		setGameStage('select');
+		setLevels(leveldata);
+		setScore({ minutes: 0, seconds: 0 });
+		setIsGameOver(false);
+		reset();
+	}
+
 	return (
 		<div className='App'>
-			<Header gameStage={gameStage} started={started} score={score} />
+			{isGameOver && <Modal score={score} handleReset={handleReset} />}
+			<Header gameStage={gameStage} started={isRunning} score={score} />
 			<Main
 				gameStage={gameStage}
 				levels={levels}
