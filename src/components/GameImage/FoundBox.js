@@ -10,7 +10,7 @@ const StyledFoundBox = styled.div`
 	top: ${(props) => `${props.coordinates.y}px`};
 	left: ${(props) => `${props.coordinates.x}px`};
 	color: ${(props) => props.theme.secondary};
-	border: 10px solid ${(props) => props.theme.primary};
+	border: 0.2rem solid ${(props) => props.theme.primary};
 	border-radius: 15px;
 	width: ${(props) => `${props.width}px`};
 	height: ${(props) => `${props.height}px`};

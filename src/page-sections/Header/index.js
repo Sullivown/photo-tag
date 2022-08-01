@@ -25,7 +25,9 @@ function Header(props) {
 	return (
 		<StyledHeader>
 			<H1>Photo Tag</H1>
-			{props.GameStage === 'level' && <Timer started={props.started} />}
+			{props.gameStage === 'level' && (
+				<Timer started={props.started} score={props.score} />
+			)}
 			<Button>How to Play</Button>
 		</StyledHeader>
 	);

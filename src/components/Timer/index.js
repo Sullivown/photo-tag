@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Button from '../../elements/Button';
-
 const StyledTimer = styled.div`
 	text-align: center;
 `;
@@ -10,7 +8,17 @@ const StyledTimer = styled.div`
 function Timer(props) {
 	return (
 		<StyledTimer>
-			{props.started ? props.time || 0 : <Button>Start</Button>}
+			<span>
+				{props.score.minutes < 9
+					? `0${props.score.minutes}`
+					: props.score.minutes}
+			</span>
+			:
+			<span>
+				{props.score.seconds <= 9
+					? `0${props.score.seconds}`
+					: props.score.seconds}
+			</span>
 		</StyledTimer>
 	);
 }

@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import LevelSelect from '../../components/LevelSelect';
 import GameImage from '../../components/GameImage';
 
-const StyledMain = styled.main`
-	min-height: 100vh;
-`;
+const StyledMain = styled.main``;
 
 function Main(props) {
 	return (
