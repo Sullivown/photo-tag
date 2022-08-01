@@ -8,10 +8,10 @@ const StyledFooter = styled.footer`
 	justify-content: space-between;
 	align-items: center;
 	padding: 15px;
-	margin-top: auto;
-	min-height: 100px;
+	height: 100px;
 	width: 100%;
 	z-index: 5;
+	margin-top: auto;
 `;
 
 function Footer() {

@@ -12,8 +12,10 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	.App {
-		max-width: 100vw;
 		font-family: sans-serif;
+		display:flex; 
+		flex-direction:column; 
+		height: 100vh;
 	}
 `;
 
