@@ -9,6 +9,7 @@ import leveldata from './assets/test-data/leveldata.json';
 import { TIME_LIMIT } from './gameSettings';
 import checkForGameOver from './utilities/checkForGameOver';
 import Modal from './components/Modal';
+import ScoreModalContent from './components/Modal/ScoreModalContent';
 
 function App() {
 	const [gameStage, setGameStage] = useState('select');
@@ -81,9 +82,13 @@ function App() {
 		reset();
 	}
 
+	const ScoreModal = Modal(ScoreModalContent);
+
 	return (
 		<div className='App'>
-			{isGameOver && <Modal score={score} handleReset={handleReset} />}
+			{isGameOver && (
+				<ScoreModal score={score} handleReset={handleReset} />
+			)}
 			<Header gameStage={gameStage} started={isRunning} score={score} />
 			<Main
 				gameStage={gameStage}
