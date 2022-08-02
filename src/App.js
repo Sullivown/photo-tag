@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 
+import { addNewLevel, getLevels, app } from './firebase';
+
 import Header from './page-sections/Header';
 import Main from './page-sections/Main';
 import Footer from './page-sections/Footer';
 
-import leveldata from './assets/test-data/leveldata.json';
 import { TIME_LIMIT } from './gameSettings';
 import checkForGameOver from './utilities/checkForGameOver';
 import Modal from './components/Modal';
@@ -13,8 +14,10 @@ import ScoreModalContent from './components/Modal/ScoreModalContent';
 import HowToPlayModalContent from './components/Modal/HowToPlayModalContent';
 
 function App() {
+	const [dataLoading, setDataLoading] = useState(true);
 	const [gameStage, setGameStage] = useState('select');
-	const [levels, setLevels] = useState(leveldata);
+	const [originalLevelsData, setOriginalLevelsData] = useState();
+	const [levels, setLevels] = useState([]);
 	const [currentLevelId, setCurrentLevelId] = useState(null);
 	const [score, setScore] = useState({ minutes: 0, seconds: 0 });
 	const [isGameOver, setIsGameOver] = useState(false);
@@ -23,6 +26,18 @@ function App() {
 	const { seconds, minutes, isRunning, start, pause, reset } = useStopwatch({
 		autoStart: false,
 	});
+
+	// Get level data
+	useEffect(() => {
+		async function getLevelData() {
+			const levelsData = await getLevels();
+			setOriginalLevelsData(levelsData);
+			setLevels(levelsData);
+			setDataLoading(false);
+		}
+
+		getLevelData();
+	}, []);
 
 	// Game end state checker: all answers found
 	useEffect(() => {
@@ -71,14 +86,11 @@ function App() {
 	function handleGameOver() {
 		setIsGameOver(true);
 		pause();
-		console.log(
-			`Game over! Your score is: ${score.minutes} minutes and ${score.seconds} seconds!`
-		);
 	}
 
 	function handleReset() {
 		setGameStage('select');
-		setLevels(leveldata);
+		setLevels(originalLevelsData);
 		setScore({ minutes: 0, seconds: 0 });
 		setIsGameOver(false);
 		reset();
@@ -109,9 +121,10 @@ function App() {
 				toggleHowToPlay={handleHowToPlayModalToggle}
 			/>
 			<Main
+				dataLoading={dataLoading}
 				gameStage={gameStage}
 				levels={levels}
-				level={levels.find((level) => level.id === currentLevelId)}
+				currentLevelId={currentLevelId}
 				handleLevelSelect={handleLevelSelect}
 				handleFound={handleFound}
 			/>

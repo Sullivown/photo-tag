@@ -7,7 +7,7 @@ function HowToPlayModalContent(props) {
 	return (
 		<>
 			<H2>How To Play</H2>
-			<div>Find the people in the fasest time!</div>
+			<div>Find the people in the fastest time!</div>
 			<Button onClick={props.toggleHowToPlay}>Close</Button>
 		</>
 	);

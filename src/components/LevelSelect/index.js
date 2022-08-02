@@ -2,20 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 
 import LevelCard from './LevelCard';
+import H2 from '../../elements/H2';
 
 const StyledLevelSelect = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding: 15px;
 	align-items: center;
+	justify-content: center;
+	min-height: 80vh;
+	height: 100%;
+	gap: 15px;
 `;
 
 const LevelsContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 50vh;
 	gap: 15px;
+	flex-wrap: wrap;
 `;
 
 function LevelSelect(props) {
@@ -29,7 +34,7 @@ function LevelSelect(props) {
 
 	return (
 		<StyledLevelSelect>
-			<h2>Stage Select:</h2>
+			<H2>Stage Select:</H2>
 			<LevelsContainer>{levelElements}</LevelsContainer>
 		</StyledLevelSelect>
 	);
