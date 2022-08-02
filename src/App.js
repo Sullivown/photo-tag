@@ -10,6 +10,7 @@ import { TIME_LIMIT } from './gameSettings';
 import checkForGameOver from './utilities/checkForGameOver';
 import Modal from './components/Modal';
 import ScoreModalContent from './components/Modal/ScoreModalContent';
+import HowToPlayModalContent from './components/Modal/HowToPlayModalContent';
 
 function App() {
 	const [gameStage, setGameStage] = useState('select');
@@ -17,6 +18,7 @@ function App() {
 	const [currentLevelId, setCurrentLevelId] = useState(null);
 	const [score, setScore] = useState({ minutes: 0, seconds: 0 });
 	const [isGameOver, setIsGameOver] = useState(false);
+	const [howToPlayModalOpen, setHowToPlayModalOpen] = useState(false);
 
 	const { seconds, minutes, isRunning, start, pause, reset } = useStopwatch({
 		autoStart: false,
@@ -82,14 +84,30 @@ function App() {
 		reset();
 	}
 
+	function handleHowToPlayModalToggle() {
+		setHowToPlayModalOpen((prevState) => !prevState);
+	}
+
 	const ScoreModal = Modal(ScoreModalContent);
+	const HowToPlayModal = Modal(HowToPlayModalContent);
 
 	return (
 		<div className='App'>
 			{isGameOver && (
 				<ScoreModal score={score} handleReset={handleReset} />
 			)}
-			<Header gameStage={gameStage} started={isRunning} score={score} />
+			{howToPlayModalOpen && (
+				<HowToPlayModal
+					toggleHowToPlay={handleHowToPlayModalToggle}
+					timeLimit={TIME_LIMIT}
+				/>
+			)}
+			<Header
+				gameStage={gameStage}
+				started={isRunning}
+				score={score}
+				toggleHowToPlay={handleHowToPlayModalToggle}
+			/>
 			<Main
 				gameStage={gameStage}
 				levels={levels}

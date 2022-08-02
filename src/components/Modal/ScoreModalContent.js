@@ -1,10 +1,12 @@
 import React from 'react';
+
 import Button from '../../elements/Button';
+import H2 from '../../elements/H2';
 
 function ScoreModalContent(props) {
 	return (
 		<>
-			<h3>Your Score:</h3>
+			<H2>Your Score:</H2>
 			<div>
 				<span>
 					{props.score.minutes < 9

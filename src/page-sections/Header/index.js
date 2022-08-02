@@ -28,7 +28,7 @@ function Header(props) {
 			{props.gameStage === 'level' && (
 				<Timer started={props.started} score={props.score} />
 			)}
-			<Button>How to Play</Button>
+			<Button onClick={props.toggleHowToPlay}>How to Play</Button>
 		</StyledHeader>
 	);
 }
