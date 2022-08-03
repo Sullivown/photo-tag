@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 import useWindowSize from '../../hooks/useWindowSize';
 
-import Wally1 from '../../assets/images/wally1.jpg';
-
 import ClickMenu from '../ClickMenu';
 import FoundBox from './FoundBox';
 
@@ -116,7 +114,7 @@ function GameImage(props) {
 			<StyledImage
 				id='current-image'
 				ref={imgRef}
-				src={Wally1}
+				src={props.level.image}
 				onLoad={() => {
 					setImgSize(getImgSize());
 					setRatios(getRatios());

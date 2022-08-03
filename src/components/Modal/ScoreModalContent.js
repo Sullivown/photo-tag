@@ -20,6 +20,7 @@ function ScoreModalContent(props) {
 						: props.score.seconds}
 				</span>
 			</div>
+			<Button>Submit Score</Button>
 			<Button onClick={props.handleReset}>Main Menu</Button>
 		</>
 	);

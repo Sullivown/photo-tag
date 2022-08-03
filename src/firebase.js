@@ -2,15 +2,12 @@
 import { initializeApp } from 'firebase/app';
 import {
 	getFirestore,
-	doc,
-	setDoc,
 	getDocs,
 	query,
 	addDoc,
 	collection,
 } from 'firebase/firestore';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: 'AIzaSyCjq7lPanAiVQHPUBX_dqmNWDYjlIjYyr4',
 	authDomain: 'photo-tag-f1780.firebaseapp.com',
