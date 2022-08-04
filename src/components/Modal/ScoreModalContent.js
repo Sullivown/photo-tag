@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import HighScoresList from '../HighScoresList';
+import WithLoadingWrapper from '../WithLoadingWrapper';
 
 import Button from '../../elements/Button';
 import H2 from '../../elements/H2';
@@ -23,6 +24,8 @@ const FullWidthButton = styled(Button)`
 	width: 100%;
 `;
 
+const HighScoresListWithLoading = WithLoadingWrapper(HighScoresList);
+
 function ScoreModalContent(props) {
 	const [isLoading, setIsLoading] = useState(true);
 	const [scoreSubmitted, setScoreSubmitted] = useState(false);
@@ -32,6 +35,7 @@ function ScoreModalContent(props) {
 		async function getScores() {
 			const highScoresData = await getHighScores(props.levelId);
 			setHighScores(highScoresData);
+			setIsLoading(false);
 		}
 
 		getScores();
@@ -78,7 +82,10 @@ function ScoreModalContent(props) {
 			<StyledDiv>
 				<H2>High Scores:</H2>
 			</StyledDiv>
-			<HighScoresList highScores={highScores} />
+			<HighScoresListWithLoading
+				highScores={highScores}
+				isLoading={isLoading}
+			/>
 			<HR />
 			<StyledDiv>
 				<FullWidthButton onClick={props.handleReset}>

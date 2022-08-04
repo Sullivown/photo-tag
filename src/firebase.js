@@ -7,6 +7,7 @@ import {
 	addDoc,
 	collection,
 	where,
+	limit,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -71,7 +72,8 @@ async function getHighScores(levelId) {
 	const scoresData = [];
 	const scoresQuery = query(
 		collection(getFirestore(), 'scores'),
-		where('levelId', '==', levelId)
+		where('levelId', '==', levelId),
+		limit(5)
 	);
 	const querySnapshot = await getDocs(scoresQuery);
 	querySnapshot.forEach((doc) => {
