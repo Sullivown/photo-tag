@@ -5,7 +5,7 @@ const StyledFooter = styled.footer`
 	display: flex;
 	color: ${(props) => props.theme.secondary};
 	background-color: ${(props) => props.theme.primary};
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	padding: 15px;
 	height: 100px;
@@ -15,7 +15,7 @@ const StyledFooter = styled.footer`
 `;
 
 function Footer() {
-	return <StyledFooter>Footer</StyledFooter>;
+	return <StyledFooter>Photo Tag</StyledFooter>;
 }
 
 export default Footer;

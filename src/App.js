@@ -106,7 +106,11 @@ function App() {
 	return (
 		<div className='App'>
 			{isGameOver && (
-				<ScoreModal score={score} handleReset={handleReset} />
+				<ScoreModal
+					score={score}
+					handleReset={handleReset}
+					levelId={currentLevelId}
+				/>
 			)}
 			{howToPlayModalOpen && (
 				<HowToPlayModal

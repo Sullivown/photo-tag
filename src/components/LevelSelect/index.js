@@ -12,7 +12,7 @@ const StyledLevelSelect = styled.div`
 	justify-content: center;
 	min-height: 80vh;
 	height: 100%;
-	gap: 15px;
+	gap: 25px;
 `;
 
 const LevelsContainer = styled.div`

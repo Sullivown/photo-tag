@@ -6,6 +6,7 @@ import {
 	query,
 	addDoc,
 	collection,
+	where,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -66,4 +67,18 @@ async function getLevels() {
 	return levelsData;
 }
 
-export { addNewLevel, getLevels, app };
+async function getHighScores(levelId) {
+	const scoresData = [];
+	const scoresQuery = query(
+		collection(getFirestore(), 'scores'),
+		where('levelId', '==', levelId)
+	);
+	const querySnapshot = await getDocs(scoresQuery);
+	querySnapshot.forEach((doc) => {
+		scoresData.push(doc.data());
+	});
+
+	return scoresData;
+}
+
+export { addNewLevel, getLevels, getHighScores };
