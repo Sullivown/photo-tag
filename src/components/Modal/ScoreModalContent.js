@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -10,7 +9,7 @@ import H2 from '../../elements/H2';
 import HR from '../../elements/HR';
 import Input from '../../elements/Input';
 
-import { getHighScores } from '../../firebase';
+import { getHighScores, postScore } from '../../firebase';
 
 const StyledDiv = styled.div`
 	width: 100%;
@@ -30,6 +29,7 @@ function ScoreModalContent(props) {
 	const [isLoading, setIsLoading] = useState(true);
 	const [scoreSubmitted, setScoreSubmitted] = useState(false);
 	const [highScores, setHighScores] = useState([]);
+	const [userName, setUserName] = useState('');
 
 	useEffect(() => {
 		async function getScores() {
@@ -41,8 +41,15 @@ function ScoreModalContent(props) {
 		getScores();
 	}, [props.levelId]);
 
+	function handleChange(e) {
+		const value = e.target.value;
+		setUserName(value);
+	}
+
 	function handleSubmitScore(e) {
 		e.preventDefault();
+		postScore(props.levelId, userName || 'Anonymous', props.score);
+		setScoreSubmitted(true);
 	}
 
 	return (
@@ -68,9 +75,11 @@ function ScoreModalContent(props) {
 					<>
 						<Input
 							name='username'
-							placeholder='Your name (3 - 10 chars)'
+							placeholder='Your name (1 - 10 chars)'
 							maxLength='10'
-							minLength='3'
+							minLength='1'
+							value={userName}
+							onChange={handleChange}
 						/>
 						<Button onClick={handleSubmitScore}>
 							Submit Score

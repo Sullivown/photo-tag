@@ -4,10 +4,12 @@ import {
 	getFirestore,
 	getDocs,
 	query,
+	doc,
 	addDoc,
+	setDoc,
 	collection,
-	where,
 	limit,
+	orderBy,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -24,8 +26,9 @@ const app = initializeApp(firebaseConfig);
 
 // Add a new document
 async function addNewLevel() {
+	const levelsRef = collection(getFirestore(), 'levels');
 	try {
-		await addDoc(collection(getFirestore(), 'levels'), {
+		await setDoc(doc(levelsRef, '1'), {
 			id: 1,
 			name: 'Wally1',
 			image: 'someurl',
@@ -71,8 +74,9 @@ async function getLevels() {
 async function getHighScores(levelId) {
 	const scoresData = [];
 	const scoresQuery = query(
-		collection(getFirestore(), 'scores'),
-		where('levelId', '==', levelId),
+		collection(getFirestore(), `levels/${levelId}/scores`),
+		orderBy('minutes'),
+		orderBy('seconds'),
 		limit(5)
 	);
 	const querySnapshot = await getDocs(scoresQuery);
@@ -83,4 +87,20 @@ async function getHighScores(levelId) {
 	return scoresData;
 }
 
-export { addNewLevel, getLevels, getHighScores };
+async function postScore(levelId, userName, score) {
+	const data = {
+		name: userName,
+		minutes: score.minutes,
+		seconds: score.seconds,
+	};
+	try {
+		await addDoc(
+			collection(getFirestore(), `levels/${levelId}/scores/`),
+			data
+		);
+	} catch (error) {
+		console.error('Error writing new message to Firebase Database', error);
+	}
+}
+
+export { addNewLevel, getLevels, getHighScores, postScore };

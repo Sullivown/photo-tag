@@ -11,6 +11,7 @@ const StyledModalPopUp = styled.div`
 	border: 1px solid ${(props) => props.theme.primary};
 	border-radius: 15px;
 	z-index: 11;
+	min-width: 300px;
 `;
 
 function ModalPopUp(props) {

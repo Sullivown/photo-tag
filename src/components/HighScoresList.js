@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const StyledList = styled.ol`
 	margin: 0;
 	padding: 0;
+	width: 100%;
 `;
 
 const StyledListItem = styled.li`
@@ -15,16 +16,10 @@ const StyledListItem = styled.li`
 function HighScoresList(props) {
 	const highScoreElements = props.highScores.map((score, index) => (
 		<StyledListItem key={index}>
-			<span>{`${index + 1}. ${score.username}`}</span>
-			<span>-</span>
+			<span>{`${index + 1}. ${score.name}`}</span>
 			<span>
-				{score.score.minutes < 9
-					? `0${score.score.minutes}`
-					: score.score.minutes}
-				:
-				{score.score.seconds <= 9
-					? `0${score.score.seconds}`
-					: score.score.seconds}
+				{score.minutes < 9 ? `0${score.minutes}` : score.minutes}:
+				{score.seconds <= 9 ? `0${score.seconds}` : score.seconds}
 			</span>
 		</StyledListItem>
 	));
