@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Option from './Option';
@@ -23,13 +23,15 @@ const StyledClickMenu = styled.div`
 `;
 
 function ClickMenu(props) {
-	const optionElements = props.level.answers.map((option) => (
-		<Option
-			key={option.id}
-			option={option}
-			handleOptionClick={props.handleOptionClick}
-		/>
-	));
+	const optionElements = props.level.answers.map((option) => {
+		return option.found ? null : (
+			<Option
+				key={option.id}
+				option={option}
+				handleOptionClick={props.handleOptionClick}
+			/>
+		);
+	});
 
 	return (
 		<StyledClickMenu

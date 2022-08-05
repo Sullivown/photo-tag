@@ -6,6 +6,7 @@ import WithLoadingWrapper from '../WithLoadingWrapper';
 
 import Button from '../../elements/Button';
 import H2 from '../../elements/H2';
+import P from '../../elements/P';
 import HR from '../../elements/HR';
 import Input from '../../elements/Input';
 
@@ -21,6 +22,10 @@ const StyledDiv = styled.div`
 
 const FullWidthButton = styled(Button)`
 	width: 100%;
+`;
+
+const SuccessP = styled(P)`
+	color: green;
 `;
 
 const HighScoresListWithLoading = WithLoadingWrapper(HighScoresList);
@@ -70,7 +75,7 @@ function ScoreModalContent(props) {
 			</div>
 			<StyledDiv>
 				{scoreSubmitted ? (
-					'Score submitted!'
+					<SuccessP>Score submitted!</SuccessP>
 				) : (
 					<>
 						<Input

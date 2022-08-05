@@ -26,7 +26,7 @@ function LevelCard(props) {
 		<StyledLevelSelect data-id={props.level.id}>
 			<H3>{props.level.name}</H3>
 			<StyledLevelCardImage
-				src={props.level.image}
+				src={props.level.previewimage}
 				alt={`${props.level.name} preview`}
 			/>
 			<Button

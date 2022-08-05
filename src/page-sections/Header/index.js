@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Timer from '../../components/Timer';
+import TargetsBox from '../../components/TargetsBox';
 
 import Button from '../../elements/Button';
 import H1 from '../../elements/H1';
@@ -15,7 +16,7 @@ const StyledHeader = styled.header`
 	justify-content: space-between;
 	align-items: center;
 	padding: 15px;
-	min-height: 100px;
+	min-height: 150px;
 	width: 100%;
 	border-bottom: 1px solid silver;
 	z-index: 5;
@@ -26,7 +27,12 @@ function Header(props) {
 		<StyledHeader>
 			<H1>Photo Tag</H1>
 			{props.gameStage === 'level' && (
-				<Timer started={props.started} score={props.score} />
+				<>
+					<TargetsBox
+						targets={props.level ? props.level.answers : []}
+					/>
+					<Timer started={props.started} score={props.score} />
+				</>
 			)}
 			<Button onClick={props.toggleHowToPlay}>How to Play</Button>
 		</StyledHeader>

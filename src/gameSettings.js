@@ -1,3 +1,3 @@
-const TIME_LIMIT = { minutes: 1, seconds: 0 };
+const TIME_LIMIT = { minutes: 30, seconds: 0 };
 
 export { TIME_LIMIT };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 
-import { addNewLevel, getLevels, app } from './firebase';
+import { getLevels } from './firebase';
 
 import Header from './page-sections/Header';
 import Main from './page-sections/Main';
@@ -19,7 +19,10 @@ function App() {
 	const [originalLevelsData, setOriginalLevelsData] = useState();
 	const [levels, setLevels] = useState([]);
 	const [currentLevelId, setCurrentLevelId] = useState(null);
-	const [score, setScore] = useState({ minutes: 0, seconds: 0 });
+	const [score, setScore] = useState({
+		minutes: 0,
+		seconds: 0,
+	});
 	const [isGameOver, setIsGameOver] = useState(false);
 	const [howToPlayModalOpen, setHowToPlayModalOpen] = useState(false);
 
@@ -122,6 +125,7 @@ function App() {
 				gameStage={gameStage}
 				started={isRunning}
 				score={score}
+				level={levels.find((level) => level.id === currentLevelId)}
 				toggleHowToPlay={handleHowToPlayModalToggle}
 			/>
 			<Main
