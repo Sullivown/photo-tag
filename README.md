@@ -4,4 +4,4 @@ A photo tagging game app. Created as part of [The Odin Project](https://www.theo
 
 ## Game Rules
 
-Find and click the various characters as fast as you can!
+Find and click the various target characters as fast a time possible!
