@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import Option from './Option';
@@ -9,8 +9,20 @@ const StyledClickMenu = styled.div`
 	position: absolute;
 	top: ${(props) =>
 		`${props.currentClick.height + props.currentClick.offsetTop}px`};
-	left: ${(props) =>
-		`${props.currentClick.width + props.currentClick.offsetLeft}px`};
+	left: ${(props) => {
+		let leftVal = 0;
+		if (props.currentClick.width < window.innerWidth - props.menuWidth) {
+			leftVal =
+				props.currentClick.width + props.currentClick.offsetLeft + 'px';
+		} else {
+			leftVal =
+				props.currentClick.width +
+				props.currentClick.offsetLeft -
+				props.menuWidth +
+				'px';
+		}
+		return leftVal;
+	}};
 	color: ${(props) => props.theme.secondary};
 	background-color: ${(props) => props.theme.primary};
 	width: 200px;
@@ -23,6 +35,7 @@ const StyledClickMenu = styled.div`
 `;
 
 function ClickMenu(props) {
+	const menuRef = useRef();
 	const optionElements = props.level.answers.map((option) => {
 		return option.found ? null : (
 			<Option
@@ -35,6 +48,8 @@ function ClickMenu(props) {
 
 	return (
 		<StyledClickMenu
+			ref={menuRef}
+			menuWidth={menuRef.current ? menuRef.current.offsetWidth : 0}
 			currentClick={props.currentClick}
 			imgSize={props.imgSize}
 			hidden={false}

@@ -10,7 +10,7 @@ const StyledFooter = styled.footer`
 	padding: 15px;
 	height: 100px;
 	width: 100%;
-	z-index: 5;
+	z-index: 2;
 	margin-top: auto;
 `;
 

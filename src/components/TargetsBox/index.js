@@ -12,7 +12,12 @@ const StyledTargetsBox = styled.div`
 
 function TargetsBox(props) {
 	const TargetElements = props.targets.map((target) => (
-		<Target image={target.image} name={target.name} found={target.found} />
+		<Target
+			key={target.id}
+			image={target.image}
+			name={target.name}
+			found={target.found}
+		/>
 	));
 
 	return <StyledTargetsBox>{TargetElements}</StyledTargetsBox>;
