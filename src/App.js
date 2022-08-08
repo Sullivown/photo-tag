@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 
-import { getLevels } from './firebase';
+import { getLevels, addNewLevel } from './firebase';
 
 import Header from './page-sections/Header';
 import Main from './page-sections/Main';

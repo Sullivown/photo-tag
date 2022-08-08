@@ -20,6 +20,8 @@ const StyledHeader = styled.header`
 	width: 100%;
 	border-bottom: 1px solid silver;
 	z-index: 5;
+	flex-wrap: wrap;
+	gap: 10px;
 `;
 
 function Header(props) {

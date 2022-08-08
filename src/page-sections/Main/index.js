@@ -15,25 +15,20 @@ const LevelSelectWithLoading = WithLoadingWrapper(LevelSelect);
 function Main(props) {
 	return (
 		<StyledMain>
-			{
-				{
-					select: (
-						<LevelSelectWithLoading
-							levels={props.levels}
-							handleLevelSelect={props.handleLevelSelect}
-							isLoading={props.dataLoading}
-						/>
-					),
-					level: (
-						<GameImage
-							level={props.levels.find(
-								(level) => level.id === props.currentLevelId
-							)}
-							handleFound={props.handleFound}
-						/>
-					),
-				}[props.gameStage]
-			}
+			{props.gameStage === 'select' ? (
+				<LevelSelectWithLoading
+					levels={props.levels}
+					handleLevelSelect={props.handleLevelSelect}
+					isLoading={props.dataLoading}
+				/>
+			) : (
+				<GameImage
+					level={props.levels.find(
+						(level) => level.id === props.currentLevelId
+					)}
+					handleFound={props.handleFound}
+				/>
+			)}
 		</StyledMain>
 	);
 }

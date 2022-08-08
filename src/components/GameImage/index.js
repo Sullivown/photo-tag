@@ -79,8 +79,6 @@ function GameImage(props) {
 			(item) => item.id === optionId
 		);
 
-		console.log(currentClick);
-
 		if (
 			currentClick.width >=
 				correctAnswer.coordinates.x.start / ratios.width &&

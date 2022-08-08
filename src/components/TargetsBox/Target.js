@@ -8,6 +8,7 @@ const StyledTargetContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	text-align: center;
 	border: 1px solid ${(props) => props.theme.primary};
 	padding: 5px;
 	gap: 5px;
